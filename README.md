@@ -1,6 +1,6 @@
 # qCraft
 
-### The Adaptive Quiz App
+## The Adaptive Quiz App
 
 qCraft is a **text-based quiz generator** that extracts content from **PDFs, PPTX files, and scanned documents** to generate quiz questions. It evaluates user responses and dynamically generates new quizzes based on areas of weakness, ensuring **adaptive learning**.
 
