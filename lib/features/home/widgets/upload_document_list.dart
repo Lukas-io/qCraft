@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qcraft/core/model/document_model.dart';
+import 'package:qcraft/core/widgets/primary_button.dart';
 import 'package:qcraft/features/home/bloc/upload_bloc.dart';
 import 'package:qcraft/features/home/widgets/upload_document_list_item.dart';
 
@@ -39,30 +40,46 @@ class _UploadDocumentListState extends State<UploadDocumentList> {
       }
       return false;
     }, builder: (context, state) {
-      return Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: widget.documents.length,
-              itemBuilder: (BuildContext context, int index) {
-                final document = widget.documents[index];
-                return UploadDocumentListItem(
-                  document: document,
-                  selected: selectedIds.contains(document.id),
-                );
-              },
+      return SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: widget.documents.length,
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                itemBuilder: (BuildContext context, int index) {
+                  final document = widget.documents[index];
+                  return UploadDocumentListItem(
+                    document: document,
+                    selected: selectedIds.contains(document.id),
+                  );
+                },
+              ),
             ),
-          ),
-          SizedBox(
-            height: 24,
-          ),
-          ContinueButton(
-            selectedDocuments: widget.documents
-                .where((document) => selectedIds.contains(document.id!))
-                .toList(),
-          ),
-        ],
+            SizedBox(
+              height: 24,
+            ),
+            AnimatedSwitcher(
+              duration: Duration(milliseconds: 300),
+              child: widget.documents.isEmpty
+                  ? SizedBox()
+                  : ContinueButton(
+                      onTap: () {
+                        // setState(() {
+                        //   selectedIds.clear();
+                        // });
+                      },
+                      selectedDocuments: widget.documents
+                          .where(
+                              (document) => selectedIds.contains(document.id!))
+                          .toList(),
+                    ),
+            ),
+          ],
+        ),
       );
     });
   }
 }
+
+// PrimaryButton("Continue",)

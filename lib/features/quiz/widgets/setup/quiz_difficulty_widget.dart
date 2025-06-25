@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:qcraft/features/quiz/widgets/setup/quiz_setup_widget.dart';
 
+import '../../../../core/enums/bloom_taxonomy_level.dart';
+
 class QuizDifficultyWidget extends StatefulWidget {
   final Function(int difficulty) onUpdate;
 
@@ -13,16 +15,6 @@ class QuizDifficultyWidget extends StatefulWidget {
 class _QuizDifficultyWidgetState extends State<QuizDifficultyWidget> {
   late String difficulty;
   int currentStep = 4;
-
-  String getDifficultyLabel(int value) {
-    if (value <= 3) {
-      return 'Easy';
-    } else if (value <= 7) {
-      return 'Medium';
-    } else {
-      return 'Hard';
-    }
-  }
 
   void updateDifficulty(int value) {
     difficulty = getDifficultyLabel(value);
@@ -85,6 +77,8 @@ class _QuizDifficultySliderState extends State<QuizDifficultySlider> {
 
               setState(() {
                 step = (position * 10).ceil();
+                if (step > 10) step = 10;
+                if (step < 1) step = 1;
               });
 
               widget.onUpdate(step);
@@ -94,6 +88,8 @@ class _QuizDifficultySliderState extends State<QuizDifficultySlider> {
 
               setState(() {
                 step = (position * 10).ceil();
+                if (step > 10) step = 10;
+                if (step < 1) step = 1;
               });
 
               widget.onUpdate(step);

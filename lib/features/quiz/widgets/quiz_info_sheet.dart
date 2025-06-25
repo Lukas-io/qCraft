@@ -1,16 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:qcraft/core/model/document_model.dart';
-import 'package:qcraft/core/services/extensions.dart';
 import 'package:qcraft/core/widgets/document_list_tile.dart';
 
-class DocumentInfoSheet extends StatelessWidget {
-  final DocumentModel document;
+import '../../../core/model/quiz_model.dart';
+import '../../../core/widgets/primary_button.dart';
+import '../screens/quiz_home_screen.dart';
+
+class QuizInfoSheet extends StatelessWidget {
+  final QuizModel quiz;
   final VoidCallback? actionButton;
   final String? actionText;
 
-  const DocumentInfoSheet(
-      {super.key, required this.document, this.actionButton, this.actionText});
+  const QuizInfoSheet(
+      {super.key, required this.quiz, this.actionButton, this.actionText});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +65,7 @@ class DocumentInfoSheet extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      document.title ?? "Title",
+                      quiz.title ?? "Title",
                       style: TextStyle(
                           fontFamily: "Proxima Nova",
                           fontSize: 24,
@@ -72,28 +74,8 @@ class DocumentInfoSheet extends StatelessWidget {
                     SizedBox(
                       height: 12,
                     ),
-                    DocumentListTile(documents: [document]),
-                    Text(
-                      "TOPICS",
-                      style: TextStyle(
-                          fontFamily: "Proxima Nova",
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 2),
-                    ),
-                    SizedBox(
-                      height: 4.0,
-                    ),
-                    Wrap(
-                      spacing: 8,
-                      children:
-                          List.generate(document.topics?.length ?? 0, (index) {
-                        final topic = document.topics![index];
-                        return Chip(
-                          label: Text(topic.capitalize()),
-                        );
-                      }),
-                    ),
+                    DocumentListTile(documents: quiz.documents!),
+
                     SizedBox(
                       height: 12,
                     ),
@@ -106,15 +88,27 @@ class DocumentInfoSheet extends StatelessWidget {
                           letterSpacing: 2),
                     ),
                     SizedBox(
-                      height: 4,
+                      height: 36,
                     ),
-                    Text(
-                      document.description ?? "description",
-                      style: TextStyle(
-                          fontFamily: "Proxima Nova",
-                          fontSize: 14,
-                          fontWeight: FontWeight.w300),
+
+                    PrimaryButton(
+                      "Take Quiz",
+                      onPressed: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => QuizHomeScreen(
+                            quiz,
+                          ),
+                        ),
+                      ),
                     ),
+                    // Text(
+                    //   quiz.description ?? "description",
+                    //   style: TextStyle(
+                    //       fontFamily: "Proxima Nova",
+                    //       fontSize: 14,
+                    //       fontWeight: FontWeight.w300),
+                    // ),
                   ],
                 ),
               ),

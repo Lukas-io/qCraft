@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:qcraft/core/model/document_model.dart';
+import 'package:qcraft/core/model/quiz_attempt_model.dart';
+import 'package:qcraft/core/model/quiz_model.dart';
+import 'package:qcraft/core/model/quiz_setup_model.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../constants/api_endpoints.dart';
@@ -28,7 +31,21 @@ abstract class ApiService {
 
   //endregion
 
+  // region Quiz
+  @GET(ApiEndpoints.quiz)
+  Future<HttpResponse<ResponseModel<List<QuizModel>>>> getQuizzes(
+      {@Query("ids") List<num>? quizIds});
+
+  @POST(ApiEndpoints.createQuiz)
+  Future<HttpResponse<ResponseModel<num>>> createQuiz(
+      @Body() QuizSetupModel setup);
+
+  @POST(ApiEndpoints.evaluateQuiz)
+  Future<HttpResponse<ResponseModel<QuizAttemptModel>>> evaluateQuiz(
+      @Body() QuizAttemptModel attempt);
+
   @POST(ApiEndpoints.generateQuiz)
-  Future<HttpResponse<ResponseModel>> generateQuiz(
-      {@Body() required var value});
+  Future<HttpResponse<ResponseModel<QuizModel>>> generateQuiz(@Path() num id,
+      {@Body() QuizAttemptModel? attempt});
+//endregion
 }

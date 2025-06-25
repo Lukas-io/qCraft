@@ -1,9 +1,41 @@
-class QuizEvent {}
+import 'package:qcraft/core/model/quiz_attempt_model.dart';
+import 'package:qcraft/core/model/quiz_setup_model.dart';
 
-class QuizStarted extends QuizEvent {}
+class QuizEvent {
+  const QuizEvent();
+}
 
-class QuizNextQuestion extends QuizEvent {}
+class GetQuizzes extends QuizEvent {
+  const GetQuizzes();
+}
 
-class QuizPreviousQuestion extends QuizEvent {}
+class ChangePageIndex extends QuizEvent {
+  final int index;
 
-class QuizFinished extends QuizEvent {}
+  const ChangePageIndex(this.index);
+}
+
+class CreateQuiz extends QuizEvent {
+  final QuizSetupModel setupModel;
+
+  const CreateQuiz({required this.setupModel});
+}
+
+class EvaluateQuiz extends QuizEvent {
+  final QuizAttemptModel attempt;
+
+  const EvaluateQuiz(this.attempt);
+}
+
+class GenerateQuiz extends QuizEvent {
+  final num quizId;
+  final QuizAttemptModel? attempt;
+
+  const GenerateQuiz(this.quizId, {this.attempt});
+}
+
+class ToggleTimer extends QuizEvent {
+  final bool isPaused;
+
+  const ToggleTimer(this.isPaused);
+}

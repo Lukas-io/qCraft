@@ -7,5 +7,7 @@ class ApiEndpoints {
 
   //-------------------- QUIZ --------------------//
   static const quiz = 'quiz';
-  static const generateQuiz = 'quiz/generate';
+  static const createQuiz = 'quiz/create';
+  static const generateQuiz = 'quiz/generate/{id}';
+  static const evaluateQuiz = 'quiz/evaluate';
 }

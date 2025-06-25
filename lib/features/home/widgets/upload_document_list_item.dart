@@ -30,7 +30,7 @@ class UploadDocumentListItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(document.formatType ?? "No extension"),
-          Text("${document.pageCount ?? 1} pages"),
+          Text("${document.pageCount ?? 1} page(s)"),
         ],
       ),
       trailing: Checkbox(
@@ -48,6 +48,7 @@ class UploadDocumentListItem extends StatelessWidget {
             document: document,
             actionButton: () {
               sl<UploadBloc>().add(SelectDocumentEvent(document.id!));
+              Navigator.pop(context);
             },
             actionText: selected ? null : "Select",
           ),

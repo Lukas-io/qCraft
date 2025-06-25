@@ -20,6 +20,7 @@ Future<DataState<T>> performRequest<T>(Future<HttpResponse<T>> request) async {
           ResponseModel.fromJson(jsonData, (json) => json as dynamic);
       String errorMessage = responseModel.message ??
           _handleBadResponse(httpResponse.response.statusCode);
+      print(errorMessage);
       return DataException(
         DioException(
           error: httpResponse.response.statusMessage,
@@ -33,7 +34,7 @@ Future<DataState<T>> performRequest<T>(Future<HttpResponse<T>> request) async {
   } on DioException catch (e) {
     debugPrint(e.toString());
     String errorMessage;
-
+    print(e);
     try {
       final responseModel = ResponseModel.fromJson(
           jsonDecode(e.response.toString()), (json) => json as dynamic);

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:qcraft/features/quiz/widgets/setup/quiz_setup_widget.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/enums/quiz_type.dart';
 
 class QuizTypeWidget extends StatefulWidget {
   final Function(QuizType type) onUpdate;
@@ -84,15 +85,4 @@ class QuizTypeChip extends StatelessWidget {
       ),
     );
   }
-}
-
-enum QuizType {
-  mcq("Multiple Choice"),
-  theory("Theory"),
-  // fitb("Fill in the Blanks"),
-  ;
-
-  final String name;
-
-  const QuizType(this.name);
 }
